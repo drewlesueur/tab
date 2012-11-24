@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+<meta name = "viewport" content = "initial-scale = 1.0"> 
+<style>
+  * {font-family: 'gill sans'}
+  p,table {font-size: 20px}
+  .pending { color: gold;}
+  .passed { color: green;}
+  
+  table {border: 1px solid black}
+</style>
+</head>
+
+<body>
+<h1>the tab programming language</h1>
+<p>
+</p>
+<h2>example</h2>
+<p>
+
+</p>
+<p>
+view source to see it in action.
+or <a href="https://github.com/drewlesueur/string-array/blob/master/index.html">
+see source on github
+</a>
+</p>
+
+
+<script src="poor_modules/poor-module.js"></script>
+
+<script src="poor_modules/script-string.js"></script>
+<script src="tab_parser.js"></script>
+<script src="tab_intepreter.js"></script>
+<script id="tab_1" src="tab_example.tab" type="tab"></script>
+
+
+<script>
+  window.onerror = function (e) {
+    alert(e)
+    throw e
+    return false
+  }
+var to_json = function (obj) {
+  return JSON.stringify(obj, null, " ")
+}
+var script_string = poorModule("script-string")
+var tab_parser = poor_module("tab_parser")
+var tab_parser = poor_module("tab_parser")
+
+script_string("tab_1", function (err, code) {
+  var parsed = tab_parser(code)
+  //alert(JSON.stringify(parsed,null," "))
+  console.log(parsed)
+})
+</script>
+

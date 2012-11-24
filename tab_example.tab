@@ -1,0 +1,11 @@
+text hi
+  hello world
+
+say hi
+
+def times_2
+  set numb arg_1
+  mult numb 2
+
+set double times_2 5
+say double
