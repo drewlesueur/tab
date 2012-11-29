@@ -1,4 +1,4 @@
-poor_module("tab", function () {
+tepoor_module("tab", function () {
   var to_string = Object.prototype.toString
 
   var is_array = function (a) {
@@ -94,7 +94,7 @@ poor_module("tab", function () {
     return parsed
   }
   
-  var get = function (scope, name) {
+  var raw_get = function (scope, raw) {
     // todo: maybe some clever caching
     while (scope) {
       if (name in scope) return scope[name]
@@ -102,81 +102,97 @@ poor_module("tab", function () {
     }
     return null
   }
+
+  var get = function (scope) {
+    var name = scope.args[1]
+    return raw_get(scope, name)
+  }
+
   var make_child_scope = function (scope) {
     var child_scope = {}
     child_scope.__parent_scope = scope
     return child_scope
   }
 
+  var interpret_args = function (scope) {
+    var args = scope.args
+    var i = 0
+    var len = args.length
+    var parsed = []
+    while (i < len) {
+      var arg = args[i]
+      if (is_string(arg)) {
+        
+      }
+    }
+  }
+
+  var interpret = function (scope, code) {
+    if (!is_array(code)) {
+      code = parse(code)
+    }
+    scope.code = code
+    scope.code_index = 0
+    while (true) {
+      scope.line = scope.__code[scope.__i]
+      if (!scope.line) {
+        //scope.line = ["__end"] // todo: cache this
+        scope = scope.calling_scope
+        // i ?
+      }
+      
+      var func_name = scope.line[0]
+      var func = raw_get(scope, func_name)
+      if (is_function(func) {
+        new_scope = {}
+        new_scope.calling_scope = scope
+        new_scope.args = line.slice(1)
+        func(new_scope)
+      } else if (is_tab_function(func)){
+        // easily? do something else if need recursion
+        var recursion_optimization = false
+        if (recursion_optimization) {
+
+        } else {
+          new_scope = make_child_scope(func.scope)
+          new_scope.calling_scope = scope
+          new_scope.args = line.slice(0)
+          new_scope.code_index = 0
+          new_scope.code = func.code
+          scope = new_scope
+        }
+      } else {
+        // its an object or array
+      }
+    }
+  }
+
   var new_tab = function (scope) {
     scope = scope || {}
+    
+
     var lib = {
-      __scope: scope,
-      __parent_scope: null,
-     
+      scope: scope,
+      parent_scope: null,
+      interpret: iterpret,
+      interpret_args: interpret_args,
+      get: get,
+      
     }
     
     merge(scope, lib)
     
-    var interpret = function (code) {
-      if (!is_array(code)) {
-        code = parse(code)
-      }
-      scope.__code = code
-      scope.__i = 0
-      while (true) {
-        scope.__line = scope.__code[scope.__i]
-        if (!scope.__line) {
-          //scope.__line = ["__end"] // todo: cache this
-          scope = scope.__calling_scope
-          // i ?
-        }
-        
-        var func_name = scope.__line[0]
-        var func = get(scope, func_name)
-        if (is_function(func) {
-          new_scope = {}
-          new_scope.__calling_scope = scope
-          new_scope.__args = line.slice(1)
-          func(new_scope)
-        } else if (is_tab_function(func)){
-          // easily? do something else if need recursion
-          var recursion_optimization = false
-          if (recursion_optimization) {
-
-          } else {
-            new_scope = make_child_scope(func.scope)
-            new_scope.__calling_scope = scope
-            new_scope.__args = line.slice(0)
-            new_scope.__i = 0
-            new_scope.__code = func.code
-            scope = new_scope
-          }
-        } else {
-          // its an object or array
-        }
-
-       
-        
-
-
-      }
-    }
     return interpret
   }
 
-  
-
-  
-
   var tab = function (arg1,arg2) {
-    
     if (is_string(arg1)) {
       return new_tab()(arg1)
     } else {
       return new_tab(arg1)
     }
   }
+
 
   return tab
 })
@@ -194,7 +210,7 @@ poor_module("tab", function () {
     while (i < len) {
       line = lines[i]
       if (
-
+t
   
       if (line.substr(0, 2) == "  ") {
         line = line.substr(2)
