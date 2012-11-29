@@ -9,3 +9,41 @@ def times_2
 
 set double times_2 5
 say double
+
+in_line tab_parse_loop
+  line = lines
+
+
+def tab_parse
+ t
+ # a defed fuction auto makes new scope
+ set code args 0
+ set lines split code new_line
+ sets ...
+ 
+ while less_than i len
+  tab_parse_loop
+
+
+fn inc
+ set var_name first args 
+ set val scope var_name
+ set_var 
+
+fn inc_maker
+ set i 0
+ 
+
+def inc_maker
+  set i 0
+  def inc
+    set i add 1 i
+  
+
+  
+
+
+
+
+
+
