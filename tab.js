@@ -1,4 +1,4 @@
-tepoor_module("tab", function () {
+poor_module("tab", function () {
   var to_string = Object.prototype.toString
 
   var is_array = function (a) {
@@ -94,13 +94,13 @@ tepoor_module("tab", function () {
     return parsed
   }
   
-  var raw_get = function (scope, raw) {
+  var raw_get = function (scope, name) {
     // todo: maybe some clever caching
     while (scope) {
       if (name in scope) return scope[name]
-      scope = scope.__parent_scope
+      scope = scope.parent_scope
     }
-    return null
+    return name
   }
 
   var get = function (scope) {
@@ -108,9 +108,16 @@ tepoor_module("tab", function () {
     return raw_get(scope, name)
   }
 
+  var raw_set
+  var set = function (scope) {
+    
+    var return_value = interpet()
+    raw_set(scope.args[0])
+  }
+
   var make_child_scope = function (scope) {
     var child_scope = {}
-    child_scope.__parent_scope = scope
+    child_scope.parent_scope = scope
     return child_scope
   }
 
@@ -119,18 +126,38 @@ tepoor_module("tab", function () {
     var i = 0
     var len = args.length
     var parsed = []
+    var calling_scope = scope.calling_scope
+    var interpreted_args = []
     while (i < len) {
       var arg = args[i]
       if (is_string(arg)) {
-        
+        var interpreted_arg = get(calling_scope, arg)
+      } else {
+        var interpreted_arg = interpret(arg)
       }
+      interpreted_args.push(arg)
     }
   }
 
-  var interpret = function (scope, code) {
+  var is_tab_function = function (f) {
+    return is_object(f) && f.type == "func"
+  }
+
+  var is_tab_object = function (o) {
+    return is_object(o) && o.type != "func"
+  }
+
+  var is_tab_array = function (o) {
+    return is_array(o)
+  }
+  
+
+  var interpret = function (code) {
     if (!is_array(code)) {
       code = parse(code)
     }
+    var new_scope = make_child_scope(scope)
+    scope = new_scope
     scope.code = code
     scope.code_index = 0
     while (true) {
@@ -138,6 +165,8 @@ tepoor_module("tab", function () {
       if (!scope.line) {
         //scope.line = ["__end"] // todo: cache this
         scope = scope.calling_scope
+        if (!scope) break
+        
         // i ?
       }
       
@@ -161,10 +190,13 @@ tepoor_module("tab", function () {
           new_scope.code = func.code
           scope = new_scope
         }
+      } else if (is_tab_object(func)){
+        return func[line[1]]
       } else {
         // its an object or array
       }
     }
+    scope = scope.parent_scope
   }
 
   var new_tab = function (scope) {
@@ -192,126 +224,6 @@ tepoor_module("tab", function () {
       return new_tab(arg1)
     }
   }
-
-
   return tab
 })
 
-
-  /*
-
-  var parse = function (code){
-    var lines = code.split("\n")
-     , parsed = [], len = lines.length
-     , i = 0, line = null
-     , parsed_line = null, sub_parsed_line = null, str = null
-     , in_string = false
-     , ic = 0 // indention count
-    while (i < len) {
-      line = lines[i]
-      if (
-t
-  
-      if (line.substr(0, 2) == "  ") {
-        line = line.substr(2)
-        if (in_string) {
-          if (parsed_line.length == 2) {
-            parsed_line.push(line)
-          } else {
-            parsed_line[2] += "\n" + line
-            // todo: you could use the join method
-          }
-        } else {
-          sub_parsed_line = line.split(" ")
-          parsed_line.push(sub_parsed_line)
-        }
-      } else if (line != "") {
-        parsed_line = line.split(" ")
-        in_string = parsed_line[0] == "text") {
-        parsed.push(parsed_line)
-      }
-      i++
-    }
-    return parsed
-  }, to_string = Object.prototype.toString
-   , is_array = function (a) {
-    return to_string.call(a) == '[object Array]'
-  }, is_function = function () {
-    return typeof obj === 'function';
-  }, merge = function (master, branch) {
-    for (key in branch) master[key] = branck[key]
-  }, set_scope: function () {
-    
-  }, lib = {
-    say: function (x) {
-      alert(x)
-    }, def_: function (){
-      
-      var code = Array.prototype.slice.call(arguments, 1);
-    }, __end: function () {
-      // you could call __end or check lengths
-      scope.__i = scope.__i_stack.pop()
-      scope.__code = scope.__code_stack.pop()
-      if (!scope.__i) return break_signal
-    }, __call: function (scope, line) {
-      var args
-      var func_name = line[0]
-      var func = scope[func_name]
-      
-      scope.__args = scope.__args
-
-      if (is_function(func)) {
-        ret = func.call(null, scope)
-      } else {
-        // conditionally do this if not tail call or explicitly stated
-        if (false) {
-          
-        } else {
-          scope.__i_stack.push(scope.__i)
-          scope.__code_stack.push(scope.__code)
-          scope.__i = 0
-          scope.__code = func
-        }
-   
-      }
-
-      args = line.slice(0)
-      scope.__i += 1
-    }, __i: 0
-     , __i_stack: []
-     , __code_stack: []
-     , __eval_args: function (scope, args) {
-      //this is the one place where you return directly from a function?
-      var ret = [], args_i = 0, args_len = args.length
-      while (args_i < args_len) {
-        ret.push(scope[arg])
-      }
-      return ret
-    }, __set_scope: function () {
-    }, __get_scope: function () {
-    }
-  }, end_line = ["__end"]
-   , break_signal = "xyzzy"
-   , current_scope = null
-   , scope = {}
-   
-  return function (code, _scope) {
-    _scope = _scope || {}
-    scope = _scope
-    scope.__code = code
-    current_scope = scope
-    merge(scope, lib)
-    if (!is_array(code)) scope.__code = parse(code)
-    var line
-
-    while (true) {
-      // maybe throw line on scope an just call 
-      line = scope.__code[scope.__i]
-      if (!line) line = end_line
-      ret = scope.__call(scope, line) 
-      if (ret == break_signal) break
-    }
-  }
-})
-
-*/
