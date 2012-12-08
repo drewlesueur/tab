@@ -50,9 +50,9 @@ poor_module("tab_expression", function () {
         if (is_less_indented) {
           in_string = false
         } else if (parsed_line.length == 2) {
-          parsed_line.push(line)
+          parsed_line.push(line.substr(2))
         } else {
-          parsed_line[2] += "\n" + trimmed_line
+          parsed_line[2] += "\n" + line.substr(2)
           // todo: you could use the join method
         }
   

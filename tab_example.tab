@@ -11,3 +11,16 @@ each houses house
   steal door color
   if is red color
     paint door blue
+
+text my_message
+  yo this is a long
+  multi line string
+  isn't it cool!! {}{}{}
+
+text a_message
+  how are you!
+  is everything ok?
+    for me its good
+
+send_text a_message
+
