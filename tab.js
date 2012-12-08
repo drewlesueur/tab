@@ -110,9 +110,10 @@ poor_module("tab", function () {
 
   var raw_set
   var set = function (scope) {
-    
+    var args = scope.args
+    var sub_expr = args.slice()
     var return_value = interpet()
-    raw_set(scope.args[0])
+    raw_set(args[0])
   }
 
   var make_child_scope = function (scope) {
@@ -123,6 +124,10 @@ poor_module("tab", function () {
 
   var interpret_args = function (scope) {
     var args = scope.args
+    return raw_interpret(args)
+  }
+
+  var raw_interpret_args = function (args) {
     var i = 0
     var len = args.length
     var parsed = []
@@ -161,7 +166,7 @@ poor_module("tab", function () {
     scope.code = code
     scope.code_index = 0
     while (true) {
-      scope.line = scope.__code[scope.__i]
+      scope.line = scope.code[scope.code_index ]
       if (!scope.line) {
         //scope.line = ["__end"] // todo: cache this
         scope = scope.calling_scope

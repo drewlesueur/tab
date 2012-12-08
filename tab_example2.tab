@@ -1,0 +1,241 @@
+text hi
+  hello world
+
+say hi
+
+def times_2
+  set numb arg_1
+  mult numb 2
+
+set double times_2 5
+say double
+
+in_line tab_parse_loop
+  line = lines
+
+
+def tab_parse
+ t
+ # a defed fuction auto makes new scope
+ set code args 0
+ set lines split code new_line
+ sets ...
+ 
+ while less_than i len
+  tab_parse_loop
+
+
+fn inc
+ set var_name first args 
+ set val scope var_name
+ set_var 
+
+fn inc_maker
+ set i 0
+ 
+
+def inc_maker
+  set i 0
+  def inc
+    set i add 1 i
+  
+
+  save
+    list
+
+map
+  list my_list
+    person dude man
+    guy tipo
+
+  def my_fn
+    set word arg1
+    text prefix
+      this is the
+    cat prefix word
+
+
+map the_list the_func
+hoist list the
+
+
+kv person
+  name Drew
+  age 28
+  wife
+    name aimee
+  kids
+    jewel
+    grace
+
+set kids get person kids
+
+
+
+
+
+potential_responses are these phrases
+  it is likely
+  no way
+  for sure
+  go for it
+  not gonna happen
+  put forth the effort
+
+when asked something
+  pick a random phrase from potential_responses
+  and tell it to the user
+
+number is 1
+count means
+  increment number by 1
+
+count
+say number
+count
+say number
+count
+
+
+my_address is 1036 N. 90th place
+
+get_distance means
+  take the address and name
+  ask google how far is address from my_address
+  when they respond
+    respond with the message
+
+mixup means
+  take the list and call it old_list
+  
+  make a new list called new_list
+
+  pull a random item from old_list
+  and put it at the end of new_list
+  remove everythig from old_list
+  put everything from new_list on old_list
+
+  
+
+cards are a list
+  star star
+  apple apple
+  lunch lunch
+  bike bike
+  circle circle
+
+make a list called cards
+make a list called symbols with
+  star diamond circle triangle
+
+loop thru every symbol in symbols
+  make an object called card with these props
+    image is symbol
+    status is down
+  put card on cards
+
+find first item that matches
+  item is 1
+
+
+    
+
+mixup cards
+arrange cards in rows of 3
+
+make an action called make_counter
+  take the number and call it numb
+  make an action called count
+    increment numb by 1
+    give numb
+  give count
+
+
+
+nand
+0    0    0    0    0    0    
+0 1  1 1  0 1  0 1  0 1  1
+
+0 1  1 0  1 0  1 0  1 1
+1    1    1    1    
+  
+
+
+
+not
+ 
+
+main
+  and-+
+      |
+   --+
+
+a b nand c
+
+a not
+  a a nand
+
+not
+  a in
+  a a nand
+
+
+
+and
+  in1 
+  a b nand c
+  c not d
+
+and
+  in1 in2 nand x
+  x not out1
+
+ff
+  set in1
+  reset in2
+  q out1
+  q' out2
+
+ff
+  set reset in
+  q q' out
+    set q' nor q
+  reset q  nor q'
+  
+
+or
+ a b in
+ c out
+ a not aa
+ b not bb
+ aa bb nand c
+
+nor
+  a b in
+  d out
+  a b or c
+  c not d
+
+xor
+ a b in
+ q out
+ a b nand c
+ a c nand d
+ b c nand e
+ d e nand q
+
+adder
+ a b in
+ s c out
+ a b xor s
+ a b and c
+
+
+main
+ 0 1 adder 
+ 
+ 
+
+
+hi
+
