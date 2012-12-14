@@ -31,9 +31,10 @@ see source on github
 <script src="poor_modules/poor-module.js"></script>
 
 <script src="poor_modules/script-string.js"></script>
-<script2 src="tab.js"></script2>
 <script src="tab_expression.js"></script>
+<script src="tab.js"></script>
 <script id="tab_1" src="tab_example.tab" type="tab"></script>
+<script id="tab_hello_world" src="tab_hello_world.tab" type="tab"></script>
 
 
 <script>
@@ -46,7 +47,7 @@ var to_json = function (obj) {
   return JSON.stringify(obj, null, " ")
 }
 var script_string = poorModule("script-string")
-//var tab = poor_module("tab")
+var tab = poor_module("tab")
 var tab_expression = poor_module("tab_expression")
 
 
@@ -54,6 +55,9 @@ script_string("tab_1", function (err, code) {
   var parsed = tab_expression(code)
   //alert(JSON.stringify(parsed, null, " "))
   console.log(parsed)
+  tab(code)
+  
+  
 })
 </script>
 
