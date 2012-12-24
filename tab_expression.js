@@ -115,7 +115,7 @@ poor_module("tab_expression", function () {
       }
       
       if (!in_string) {
-        if (is_valid_line()) {
+        if (true || is_valid_line()) {
           parsed_line = trimmed_line.split(" ")
           empty_string_spot = first_index_of(parsed_line, "" )
 
