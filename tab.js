@@ -63,13 +63,19 @@ poor_module("tab", function () {
   var is_tab_array = function (o) { return is_array(o) }
 
   var interpret = function (scope) {
+    //todo: maybe some of these checks can be moved into another function
+    if (!scope.i) { scope.i = 0}
+    if (is_array(scope)) {
+      scope = {code: scope, i: 0, parent_scope: lib}
+    }
     if (!is_array(scope.code)) {
       scope.code = parse(scope.code)
     }
-    var new_scope = make_child_scope(scope)
-    scope = new_scope
-    scope.code = code
-    scope.code_index = 0
+    // i think this code is good but it belongs somewhere else
+    //var new_scope = make_child_scope(scope)
+    //scope = new_scope
+    //scope.code = code
+    //scope.code_index = 0
     while (true) {
       scope.line = scope.code[scope.code_index ]
       if (!scope.line) {

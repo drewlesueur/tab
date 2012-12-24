@@ -25,3 +25,39 @@ text a_message
 
 send_text a_message
 
+fun s
+
+can i save this?
+
+aimee and i are watching frasier 
+frasier and niles are very competitive
+
+i am holding grace in the bathroom
+i hope it helps her stufy nose
+
+aimee is so beautiful
+i love her so much
+its fun being her husband 
+writing morse code is fun 
+i hope i can make cool programs from my phone
+i am trying to find a pacifyer
+aimee is grumpy really grumpy
+
+
+idea: syntaxless programing languages
+take laguages and via macros, allow you
+write it in tab(outline)(or peppermint expressions) format
+you can use a subset of the language that way too
+you are still programing in that language, just a new syntax 
+it might be a cool way to focus on the abstraction of a programing language without bothering with the syntax
+
+
+
+for javascript
+def hello name
+  set message intrp  hello $name
+  console.log message
+ 
+
+ 
+if 
