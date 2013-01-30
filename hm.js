@@ -26,7 +26,7 @@ poor_module("hash_machine", function () {
         var my_dict = {}
         for (var i = 1; i < len; i += 2 ) {
           var key = args[i]
-          var value = get_word(args[i + 1] )
+          var value = get_word(args[i])
           my_dict[key] = value
         }
         world[name] = my_dict
@@ -39,6 +39,7 @@ poor_module("hash_machine", function () {
         for (var i = 1; i < len; i++) {
           my_list.push(get_word(args[i]))
         }
+
       },
       goto: function (args) {
         var code = get_word(args[0])
