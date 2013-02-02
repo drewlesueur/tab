@@ -41,6 +41,36 @@ poor_module("tab", function () {
       return list
     }
   }
+ 
+  var first = function (list) {
+    return list[0]
+  }
+
+  var second = function (list) {
+    return list[1]
+  }
+
+
+  var rest = function (list) {
+    return list.slice(1   )
+  }
+
+  var replace = function (list, old_value, new_value) {
+    for (var i = 0; i < list.length; i ++) {
+      var item = list[i]
+      if (is_array(item)) {
+        list[i] = replace(item, old_value, new_value)
+      } else if (item == old_value){
+        list[i] = new_value
+      
+    }
+    return list
+  }
+
+
+  var evalute = fuction (orig_code, scope) {
+     
+  }
 
   var evaluate  = function (orig_code, scope) {
     var code = copy(orig_code)
@@ -52,37 +82,41 @@ poor_module("tab", function () {
     while (true) {
       //todo  tail call optimization
       var item = code[i]
-      if (i == code.length) {
-        var first = ret[0]
+      if (i == 1 ) {
+        var fn_name = first(code)
+        
         var val = null 
-        if (is_string(first) && first in scope) {
-          var system_func = scope[first]
-          val = system_func.apply(null, ret.slice(1)) // you are copying mostly the whole thing here 
-          // todo optimize
+        if (is_string(fn_name) && fn_name in scope) {
+          var system_func = scope[fn_name]
+          val = system_func(second(code))
+         // val rev sytem_func scond code 
+          
             
         } else {
+          var func = first(code)
+          var arg_value = second(code)
 
+          var arg_name = first(func)
+          var body = rest(func)
+          
+          var new_body = replace(body, arg_name, arg_value)
+          
         }
+
+        
         if (code_stack.length == 0) {
           break // too soon? 
         }
         code = code_stack.pop()
         
         i = i_stack.pop()
-        ret = ret_stack.pop()
-        ret[i] = val
-        i = 0
         item = code[i]
       }
       
       if (is_array(item)) {
         code_stack.push(code)
         i_stack.push(i)
-        ret_stack.push(ret)
-        ret = []
         i = 0
-      } else {
-        ret.push(item)
       }
        
       i += 1
