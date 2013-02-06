@@ -1,11 +1,10 @@
-poor_module("tab", function () {
+ poor_module("tab", function () {
   var parse = poor_module("tab_expression")
   var to_string = Object.prototype.toString
   var is_array = function (a) { return to_string.call(a) == '[object Array]' }
   var is_function = function (obj) { return typeof obj === 'function'; }
   var is_string = function (a) { return to_string.call(a) == '[object String]' }
   var merge = function (master, branch) { for (key in branch) master[key] = branch[key] }
-  
   
   var lib = function () {
     say: function (scope, msg) {
@@ -19,7 +18,6 @@ poor_module("tab", function () {
     }
   }
   
- 
   var map = function (list, func) {
     var len = list.length
     var ret = []
@@ -50,9 +48,8 @@ poor_module("tab", function () {
     return list[1]
   }
 
-
   var rest = function (list) {
-    return list.slice(1   )
+    return list.slice(1  )
   }
 
   var replace = function (list, old_value, new_value) {
@@ -62,14 +59,9 @@ poor_module("tab", function () {
         list[i] = replace(item, old_value, new_value)
       } else if (item == old_value){
         list[i] = new_value
-      
+      }
     }
     return list
-  }
-
-
-  var evalute = fuction (orig_code, scope) {
-     
   }
 
   var evaluate  = function (orig_code, scope) {
@@ -82,41 +74,44 @@ poor_module("tab", function () {
     while (true) {
       //todo  tail call optimization
       var item = code[i]
-      if (i == 1 ) {
-        var fn_name = first(code)
-        
-        var val = null 
+      if (i == 2 ) {
+        var fn_name = first(code) 
         if (is_string(fn_name) && fn_name in scope) {
           var system_func = scope[fn_name]
-          val = system_func(second(code))
-         // val rev sytem_func scond code 
-          
-            
+          code = system_func(second(code))
         } else {
           var func = first(code)
           var arg_value = second(code)
-
           var arg_name = first(func)
           var body = rest(func)
-          
           var new_body = replace(body, arg_name, arg_value)
-          
+          var code = new_body 
         }
 
         
         if (code_stack.length == 0) {
+          return val 
           break // too soon? 
         }
-        code = code_stack.pop()
-        
-        i = i_stack.pop()
-        item = code[i]
+
+       
+        if (!is_evalable(code)) {
+          var old_code = code
+          code = code_stack.pop()
+          i = i_stack.pop()
+          code[i] = code
+          item = code[i]
+        } else {
+          i = 0
+          item = code
+        }
       }
       
       if (is_array(item)) {
         code_stack.push(code)
         i_stack.push(i)
         i = 0
+        code = item
       }
        
       i += 1
@@ -136,7 +131,7 @@ run code given_index
   line code index
   
  
-
+/*
 
 (add 1 2)
 
@@ -144,3 +139,65 @@ run code given_index
  
 
 (f1 a (+ a 1)) 5
+
+
+add2 n
+  added1 add1 n
+  add1 added1
+
+add3 n
+  added2 add2 n
+  add1 added2 n
+  
+add3 n
+  add1 add2.n
+
+add2
+  add3 1
+
+add_1_more fnc n
+  n2 fnc n
+  add1 n2
+ 
+add_1_more add2 1
+
+(add1 (add2 1))
+
+
+(add2)
+
+add_s
+  fn x add1
+
+(add_s 0) 1
+
+add_s.0 1
+
+fn.x.add1.0 1
+
+
+
+add_s n
+
+( )
+  
+add_smthng add2
+add_smthng 0 3
+
+
+
+(add2 0)
+
+
+
+(add2)
+(add)
+
+
+
+
+
+--
+
+()
+*/

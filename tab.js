@@ -1,4 +1,4 @@
-poor_module("tab", function () {
+ poor_module("tab", function () {
   var parse = poor_module("tab_expression")
   var to_string = Object.prototype.toString
   var is_array = function (a) { return to_string.call(a) == '[object Array]' }
