@@ -64,64 +64,32 @@
     return list
   }
 
-  var evaluate  = function (orig_code, scope) {
-    var code = copy(orig_code)
-    scope = scope || {}
-    merge(scope, lib)
+
+  var evaluate = function (code) {
     var code_stack = []
-    var i_stack = []
-    var i = 0
+   
     while (true) {
-      //todo  tail call optimization
-      var item = code[i]
-      if (i == 2 ) {
-        var fn_name = first(code) 
-        if (is_string(fn_name) && fn_name in scope) {
-          var system_func = scope[fn_name]
-          code = system_func(second(code))
-        } else {
-          var func = first(code)
-          var arg_value = second(code)
-          var arg_name = first(func)
-          var body = rest(func)
-          var new_body = replace(body, arg_name, arg_value)
-          var code = new_body 
+      if (code = null) {
+        code = code_stack.pop()
+        if (code == null) {
+          //wrap up
+          break
         }
-
+      } else if (is_atom(code)) {
+        code = code_stack.pop()
+        code = code[1]
+      } else if (isnt_atom (code)) {
+        code_stack.push(code) 
+        code = code[0]
         
-        if (code_stack.length == 0) {
-          return val 
-          break // too soon? 
-        }
-
-       
-        if (!is_evalable(code)) {
-          var old_code = code
-          code = code_stack.pop()
-          i = i_stack.pop()
-          code[i] = code
-          item = code[i]
-        } else {
-          i = 0
-          item = code
-        }
       }
-      
-      if (is_array(item)) {
-        code_stack.push(code)
-        i_stack.push(i)
-        i = 0
-        code = item
-      }
-       
-      i += 1
     }
   }
+
 })
 
-
  
-
+/*
 // after macroing
 
 run code given_index
@@ -131,9 +99,8 @@ run code given_index
   line code index
   
  
-/*
 
-(add 1 2)
+(add 1 2e
 
 (((fn a) (add a 1)) 5)
  
