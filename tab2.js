@@ -1,4 +1,4 @@
- poor_module("tab", function () {
+   poor_module("tab", function () {
   var parse = poor_module("tab_expression")
   var to_string = Object.prototype.toString
   var is_array = function (a) { return to_string.call(a) == '[object Array]' }
@@ -64,6 +64,12 @@
     return list
   }
 
+  var compile = function (code) {
+    // demacroify
+    
+  }
+
+  // think about recursion
 
   var evaluate = function (code) {
     var code_stack = []
@@ -161,9 +167,21 @@ add_smthng 0 3
 (add)
 
 
+map λ list fn
+  map2 λ list fn new_list
+    is_null? list
+      new_list
+      do
+        list2 tail list
+        item head list
+        new_item fn item
+        new_list2 push new_list new_  item
+        map2 new_list   
+  map2 list fn empty_list
 
 
 
+(map|ld|list|fn)
 --
 
 ()

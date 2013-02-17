@@ -42,50 +42,13 @@ other stuff
   another test
 </script>
 <script type="tab" id="tab2">
-0
-  table
-    translateX 40%
-    translateY 90%
-  kyle
-    translateX 80%
-    translateY 90%
-  mack
-    translateX 80%
-    translateY 90%
-  brodie
-    translateX 80%
-    translateY 90%
-  lucy
-    translateX 80%
-    translateY 90%
-  bobbi
-    translateX 80%
-    translateY 90%
-  
-  dragon
-    translateY -200%
-  caption
-    text 
-      once upon a time the LeSueurs
-      were eating diner together
-1000
-  caption
-    text 
-      "What was that?"
-  dragon
-    translateY -3%
-500
-  caption
-    text 
-      seriosly what was that?
-  dragon
-    translateY 0%
-
-100
-  kyle
     
 </script>
 <script id="expression_test" type="tab">
+test a thing
+  and another
+</script>
+<script id="expression_test_2" type="tab">
 all_vehicles
   name All Vehicles
 
@@ -98,12 +61,13 @@ map
 what  about this really cool one
 
 simple thing
-  a nested string 
+  a nested string  for fun
     fun stuff here
       and here
-    and here
-  not so much here
+    and here2
+  a not nested string
 
+but this?
 </script>
 
 
@@ -120,14 +84,10 @@ var script_string = poorModule("script-string")
 var tab = poor_module("tab")
 var tab_expression = poor_module("tab_expression")
 
-script_string("expression_test", function (err, code) {
-  //var parsed = tab_expression(code)
-  //console.log(parsed)
+script_string("expression_test_2", function (err, code) {
+  var parsed = tab_expression(code)
+  console.log(parsed)
 })
 
-script_string("tab2", function (err, code) { 
-  var parsed = tab_expression(code)
-  console.log(parsed)  
-})
 </script>
 

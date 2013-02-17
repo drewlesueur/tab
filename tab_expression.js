@@ -1,6 +1,6 @@
 /*
   todo 
-  include empty lines
+  include empty lines.
   fix bug with double space
 */
 poor_module("tab_expression", function () {
@@ -76,6 +76,10 @@ poor_module("tab_expression", function () {
         i++;
         continue;
         // use labels?
+      } else if (!in_string && !is_valid_line()) {
+        //parsed.push("");
+        //i++;
+        //continue;
       }
       new_indent_count = get_indent_count()
       trimmed_line = line.substr(new_indent_count)
@@ -95,6 +99,7 @@ poor_module("tab_expression", function () {
           keep_popping()
         } else if (is_less_indented) {
           in_string = false
+          new_indent_count = indent_count //???
         } else if (current_str ==  ""  ) {
           parsed_line[last_index] += line.substr(new_indent_count)
         } else { 
@@ -115,7 +120,7 @@ poor_module("tab_expression", function () {
       }
       
       if (!in_string) {
-        if (true || is_valid_line()) {
+        if (false || is_valid_line()) {
           parsed_line = trimmed_line.split(" ")
           empty_string_spot = first_index_of(parsed_line, "" )
 
@@ -130,6 +135,8 @@ poor_module("tab_expression", function () {
             parsed_line[last_index] = str
           }
           parsed.push(parsed_line)
+        } else {
+          
         }
       }
       indent_count = new_indent_count
