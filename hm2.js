@@ -14,27 +14,31 @@ poor_module("hash_machine", function () {
     return first_letter.search(/\d/) == 0
   }
 
-  var lib = {
+  var commands = {
     say: function (arg) {console.log(arg[1]); return arg[1]},
-    alert: function (arg) {alert(arg[1])}
+    alert: function (arg) {alert(arg[1])},
+    goto:function (args) {return },
+    ret_val: function (args) {return ret_val}
   }
-  var func_line_map = {}
 
-  var eval_line = function (line, i, scope, commands) {
-      var my_func = line[0];
-      var my_real_func = commands[my_func];
-      if (my_real_func) {
-        scope.ret_val =  my_real_func(line);
-      } else if (is_numeric(my_func)) {
-        i = my_func
-      } else {
-        i = scope[my_func]
-      }
-      return i+1;
+  var line = [];
+  var i = 0;
+  var scope = {};
+  var ret_val
+  var eval_line = function () {
+    var my_func = line[0];
+    var my_real_func = commands[my_func];
+    if (my_real_func) {
+      ret_val =  my_real_func(line);
+    } else if (is_numeric(my_func)) {
+      i = my_func
+    } else {
+      i = scope[my_func]
+    }
+    i += 1
   }
   var evaluate = function (raw_code, scope) {
     scope = scope || {}
-    debugger
     if (is_array(raw_code)) {
       code = raw_code
     } else {
@@ -44,10 +48,10 @@ poor_module("hash_machine", function () {
     i = 0;
     while (true) {
       if (i == code.length) {break}
-      i = eval_line(code[i], i, scope, lib);
+      line = code[0]
+      eval_line();
     }
-    return scope.ret_val;
-
+    return ret_val
   } 
   return evaluate;
 })
