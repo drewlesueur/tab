@@ -32,6 +32,7 @@ see source on github
 
 <script src="poor_modules/script-string.js"></script>
 <script src="tab_expression.js"></script>
+<script src="hm2.js"></script>
 <script src="tab.js"></script>
 <script id="tab_1" src="tab_example.tab" type="tab"></script>
 <script id="tab_hello_world" src="tab_hello_world.tab" type="tab"></script>
@@ -68,6 +69,13 @@ simple thing
   a not nested string
 
 but this?
+
+what  about this long string
+and more stuff here
+</script>
+
+<script id="hm_test" type="hm">
+say  hello world
 </script>
 
 
@@ -83,10 +91,17 @@ var to_json = function (obj) {
 var script_string = poorModule("script-string")
 var tab = poor_module("tab")
 var tab_expression = poor_module("tab_expression")
+var hash_machine = poor_module("hash_machine");
 
 script_string("expression_test_2", function (err, code) {
   var parsed = tab_expression(code)
   console.log(parsed)
+})
+
+script_string("hm_test", function (err, code) {
+  var result = hash_machine(code); 
+  console.log("hash machine result");
+  console.log(result);
 })
 
 </script>
